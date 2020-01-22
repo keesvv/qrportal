@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const banner = require('./lib/banner');
 const server = require('./lib/server');
 const qrcode = require('./lib/qrcode');

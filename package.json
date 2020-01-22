@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "🔮 Terminal utility for generating QR codes for files/folders.",
   "main": "index.js",
+  "bin": {
+    "qrportal": "./index.js"
+  },
   "scripts": {
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
