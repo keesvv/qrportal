@@ -1,7 +1,7 @@
 {
   "name": "qrportal",
   "version": "1.0.0",
-  "description": "🔮 Terminal utility for generating QR codes for files/folders",
+  "description": "🔮 Terminal utility for generating QR codes for files/folders.",
   "main": "index.js",
   "scripts": {
     "start": "node .",
