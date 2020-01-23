@@ -13,7 +13,7 @@ export default {
     const app = express();
     let fileName: string;
     let filePath: string;
-    let fileContent: Buffer;
+    let fileContent: Buffer | boolean;
   
     if (!args.length) {
       logger.logError('Please specify one or more input files.', true)
@@ -24,34 +24,33 @@ export default {
     }
 
     filePath = path.resolve(args[0]);
-    fileName = path.basename(filePath);
-    fileContent = fs.readFileSync(filePath);
+    fileName = `${path.basename(filePath)}.zip`;
 
     await logger.logProgress('compressing files...', new Promise(async (resolve, reject) => {
       try {
-        await compression.compressFile(filePath);
+        fileContent = await compression.compressFile(filePath);
         resolve();
       } catch (error) {
         reject(error);
       }
     }));
 
-    app.get('/', async (req, res) => {
-      res.attachment(fileName);
-
-      await logger.logProgress('downloading file...', new Promise((resolve, reject) => {
-        res.send(fileContent);
-        req.on('end', () => {
-          resolve();
-        });
-      }));
-
-      console.log(chalk.white.bold('file downloaded, exiting...'));
-  
-      util.exit(0, 1000);
-    });
-
     await logger.logProgress('starting server...', new Promise((resolve, reject) => {
+      app.get('/', async (req, res) => {
+        res.attachment(fileName);
+  
+        await logger.logProgress('downloading file...', new Promise((resolve, reject) => {
+          res.send(fileContent);
+          req.on('end', () => {
+            resolve();
+          });
+        }));
+  
+        console.log(chalk.white.bold('file downloaded, exiting...'));
+    
+        util.exit(0, 1000);
+      });
+
       app.listen(9595, () => {
         resolve();
       });
