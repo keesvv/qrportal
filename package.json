@@ -1,6 +1,6 @@
 {
   "name": "qrportal",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "🔮 Terminal utility for generating QR codes for files/folders.",
   "main": "./dist/lib",
   "bin": {
