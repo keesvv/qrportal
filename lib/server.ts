@@ -5,13 +5,13 @@ import express from 'express';
 import logger from './logger';
 import util from './util';
 import compression from './compression';
+import moment from 'moment';
 
 const args = process.argv.slice(2);
 
 export default {
   async start() {
     const app = express();
-    let fileName: string;
     let filePath: string;
     let fileContent: Buffer | boolean;
   
@@ -23,11 +23,9 @@ export default {
       logger.logError('The file/folder you provided does not exist.', true)
     }
 
-    filePath = path.resolve(args[0]);
-    fileName = `${path.basename(filePath)}.zip`;
-
     await logger.logProgress('compressing files...', new Promise(async (resolve, reject) => {
       try {
+        filePath = path.resolve(args[0]);
         fileContent = await compression.compressFile(filePath);
         resolve();
       } catch (error) {
@@ -37,7 +35,7 @@ export default {
 
     await logger.logProgress('starting server...', new Promise((resolve, reject) => {
       app.get('/', async (req, res) => {
-        res.attachment(fileName);
+        res.attachment(`qrportal_${moment().format('YYYY-MM-DD_HH.mm.ss')}.zip`);
   
         await logger.logProgress('downloading file...', new Promise((resolve, reject) => {
           res.send(fileContent);
