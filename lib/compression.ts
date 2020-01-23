@@ -19,7 +19,7 @@ export default {
       } else if (stat.isDirectory()) {
         archive.directory(filePath, fileName);
       } else {
-        throw new Error('Unsupported');
+        throw { exit: true, message: 'This input type is unsupported.' };
       }
     });
 
