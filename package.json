@@ -21,6 +21,7 @@
   "author": "Kees van Voorthuizen",
   "license": "MIT",
   "dependencies": {
+    "archiver": "^3.1.1",
     "chalk": "^3.0.0",
     "express": "^4.17.1",
     "internal-ip": "^5.0.0",
