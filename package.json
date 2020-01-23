@@ -14,6 +14,7 @@
     "start": "node ./dist/lib",
     "dev": "nodemon ./dist/lib",
     "compile": "tsc",
+    "watch": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
