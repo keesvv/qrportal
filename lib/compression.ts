@@ -1,6 +1,7 @@
 import archiver from 'archiver';
 import fs from 'fs';
 import path from 'path';
+import streamBuffers from 'stream-buffers';
 
 export default {
   async compressFile(filePath: string) {
@@ -20,6 +21,10 @@ export default {
       throw new Error('Unsupported');
     }
 
+    const buffer = new streamBuffers.WritableStreamBuffer();
+    archive.pipe(buffer);
+
     await archive.finalize();
+    return buffer.getContents();
   }
 }
