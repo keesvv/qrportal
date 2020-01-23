@@ -1,24 +1,31 @@
 import chalk from 'chalk';
 
-export default {
-  async logProgress(message: string, promise: Promise<void>) {
-    process.stdout.write(chalk.white.bold(`${message} `));
+function logError(message: string, exit = false) {
+  console.log(chalk.redBright(message));
 
-    try {
-      await promise;
-      process.stdout.write(chalk.black.bgGreen.bold(' OK '));
-      process.stdout.write('\n');
-    } catch (error) {
-      process.stdout.write(chalk.black.bgRedBright.bold(' FAILED '));
-      process.stdout.write('\n');
+  if (exit) {
+    process.exit(1);
+  }
+}
 
-      if (error.message) {
-        console.log(chalk.redBright(error.message));
-      }
+async function logProgress(message: string, promise: Promise<void>) {
+  process.stdout.write(chalk.white.bold(`${message} `));
 
-      if (error.exit) {
-        process.exit(1);
-      }
+  try {
+    await promise;
+    process.stdout.write(chalk.black.bgGreen.bold(' OK '));
+    process.stdout.write('\n');
+  } catch (error) {
+    process.stdout.write(chalk.black.bgRedBright.bold(' FAILED '));
+    process.stdout.write('\n');
+
+    if (error.message) {
+      logError(error.message, error.exit);
     }
   }
+}
+
+export default {
+  logError,
+  logProgress
 }
