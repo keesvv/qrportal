@@ -1,5 +1,5 @@
 export default {
-  exit(code, graceTime = 0) {
+  exit(code: number, graceTime = 0) {
     setTimeout(() => {
       process.exit(code);
     }, graceTime);

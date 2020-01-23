@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 
 export default {
-  async logProgress(message, promise) {
+  async logProgress(message: string, promise: Promise<void>) {
     process.stdout.write(chalk.white.bold(`${message} `));
 
     try {

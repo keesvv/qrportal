@@ -10,9 +10,9 @@ const args = process.argv.slice(2);
 export default {
   async start() {
     const app = express();
-    let fileName;
-    let filePath;
-    let fileContent;
+    let fileName: string;
+    let filePath: string;
+    let fileContent: Buffer;
 
     app.get('/', async (req, res) => {
       res.attachment(fileName);
