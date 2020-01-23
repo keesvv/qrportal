@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import express from 'express';
 import logger from './logger';
 import util from './util';
+import compression from './compression';
 
 const args = process.argv.slice(2);
 
@@ -13,6 +14,27 @@ export default {
     let fileName: string;
     let filePath: string;
     let fileContent: Buffer;
+  
+    if (!args.length) {
+      logger.logError('Please specify one or more input files.', true)
+    }
+
+    if (!fs.existsSync(args[0])) {
+      logger.logError('The file/folder you provided does not exist.', true)
+    }
+
+    filePath = path.resolve(args[0]);
+    fileName = path.basename(filePath);
+    fileContent = fs.readFileSync(filePath);
+
+    await logger.logProgress('compressing files...', new Promise(async (resolve, reject) => {
+      try {
+        await compression.compressFile(filePath);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    }));
 
     app.get('/', async (req, res) => {
       res.attachment(fileName);
@@ -30,18 +52,6 @@ export default {
     });
 
     await logger.logProgress('starting server...', new Promise((resolve, reject) => {
-      if (!args.length || !fs.existsSync(args[0])) {
-        if (!args.length) {
-          reject({ exit: true, message: 'Please specify one or more input files.' });
-        } else if (!fs.existsSync(args[0])) {
-          reject({ exit: true, message: 'One or more files do not exist.' });
-        }
-      }
-
-      filePath = path.resolve(args[0]);
-      fileName = path.basename(filePath);
-      fileContent = fs.readFileSync(filePath);
-
       app.listen(9595, () => {
         resolve();
       });
