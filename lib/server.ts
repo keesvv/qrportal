@@ -1,15 +1,15 @@
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
-const express = require('express');
-const logger = require('./logger');
-const util = require('./util');
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
+import express from 'express';
+import logger from './logger';
+import util from './util';
 
 const args = process.argv.slice(2);
 
-module.exports = {
+export default {
   async start() {
-    const app = new express();
+    const app = express();
     let fileName;
     let filePath;
     let fileContent;

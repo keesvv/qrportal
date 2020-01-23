@@ -1,6 +1,6 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
-module.exports = {
+export default {
   async logProgress(message, promise) {
     process.stdout.write(chalk.white.bold(`${message} `));
 

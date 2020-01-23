@@ -1,7 +1,7 @@
-const qrcode = require('qrcode-terminal');
-const internalIp = require('internal-ip');
+import qrcode from 'qrcode-terminal';
+import internalIp from 'internal-ip';
 
-module.exports = {
+export default {
   async generate() {
     const ip = await internalIp.v4();
     process.stdout.write('\n');

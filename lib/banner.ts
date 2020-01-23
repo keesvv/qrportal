@@ -1,7 +1,7 @@
-const chalk = require('chalk');
-const { version } = require('../package');
+import chalk from 'chalk';
+import { version } from '../package.json';
 
-module.exports = {
+export default {
   display() {
     console.log();
     
