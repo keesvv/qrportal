@@ -4,7 +4,7 @@
   "description": "🔮 Terminal utility for generating QR codes for files/folders.",
   "main": "./dist/lib",
   "bin": {
-    "qrportal": "./bin/qrcode"
+    "qrportal": "./bin/qrportal"
   },
   "scripts": {
     "start": "node ./dist/lib",
