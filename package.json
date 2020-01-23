@@ -6,6 +6,10 @@
   "bin": {
     "qrportal": "./bin/qrportal"
   },
+  "files": [
+    "dist",
+    "bin"
+  ],
   "scripts": {
     "start": "node ./dist/lib",
     "dev": "nodemon ./dist/lib",
