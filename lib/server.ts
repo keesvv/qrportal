@@ -12,21 +12,25 @@ const args = process.argv.slice(2);
 export default {
   async start() {
     const app = express();
-    let filePath: string;
     let fileContent: Buffer | boolean;
   
     if (!args.length) {
       logger.logError('Please specify one or more input files.', true)
     }
 
-    if (!fs.existsSync(args[0])) {
-      logger.logError('The file/folder you provided does not exist.', true)
-    }
-
     await logger.logProgress('compressing files...', new Promise(async (resolve, reject) => {
       try {
-        filePath = path.resolve(args[0]);
-        fileContent = await compression.compressFile(filePath);
+        const filePaths = args.map((arg) => {
+          const fullPath = path.resolve(arg);
+
+          if (!fs.existsSync(fullPath)) {
+            logger.logError(`'${fullPath}' does not exist.`, true)
+          }
+
+          return fullPath;
+        });
+
+        fileContent = await compression.compress(filePaths);
         resolve();
       } catch (error) {
         reject(error);
