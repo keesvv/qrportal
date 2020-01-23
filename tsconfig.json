@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
+    "resolveJsonModule": true,
     "noEmitOnError": true,
     "incremental": true,
-    "module": "CommonJS",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "target": "ESNext",
     "removeComments": true,
     "sourceMap": true,
+    "module": "CommonJS",
+    "target": "ESNext",
     "outDir": "./dist"
   },
   "include": [
