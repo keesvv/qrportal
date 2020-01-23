@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "noEmitOnError": true,
+    "incremental": true,
+    "module": "CommonJS",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "./lib/index.ts"
+  ]
+}
