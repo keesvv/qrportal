@@ -11,6 +11,7 @@
     "bin"
   ],
   "scripts": {
+    "postinstall": "yarn compile",
     "start": "node ./dist/lib",
     "dev": "nodemon ./dist/lib",
     "compile": "tsc",
